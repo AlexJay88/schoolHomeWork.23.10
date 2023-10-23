@@ -45,7 +45,6 @@ public class Faculty {
         return Objects.equals(name, faculty.name) && Objects.equals(color, faculty.color);
     }
 
-
     @Override
     public int hashCode() {
         return Objects.hash(name, color);

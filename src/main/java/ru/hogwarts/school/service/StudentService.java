@@ -4,6 +4,7 @@ import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
 
+
 public interface StudentService {
     Student create(Student student);
 

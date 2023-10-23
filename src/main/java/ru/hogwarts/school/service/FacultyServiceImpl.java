@@ -46,7 +46,6 @@ public class FacultyServiceImpl implements FacultyService {
 
         }
 
-
         repositoryFaculty.put(faculty.getId(), faculty);
         return faculty;
 
