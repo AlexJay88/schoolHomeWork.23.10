@@ -8,16 +8,14 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentServiceImplTest {
-     StudentServiceImpl studentService=new StudentServiceImpl();
-
-
+    StudentServiceImpl studentService = new StudentServiceImpl();
 
 
     @Test
     void createStudent() {
-        int id=1;
-        String name="Harry";
-        Collection<Student>students=studentService.getClass(Student);
+        int id = 1;
+        String name = "Harry";
+        Collection<Student> students = studentService.getClass(Student);
 
     }
 

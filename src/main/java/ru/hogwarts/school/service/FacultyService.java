@@ -7,6 +7,7 @@ import java.util.Collection;
 public interface FacultyService {
     Faculty create(Faculty faculty);
 
+
     Faculty read(long id);
 
     Faculty update(Faculty faculty);

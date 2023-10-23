@@ -13,23 +13,20 @@ import ru.hogwarts.school.exception.StudentNotFoundException;
 public class ControllerExceptionHandler {
 
 
-
-
     @ExceptionHandler({StudentAlreadyExistsException.class, FacultyAlreadyExistsException.class})
-    public ResponseEntity<String>handleAlreadyExistsException(RuntimeException e){
+    public ResponseEntity<String> handleAlreadyExistsException(RuntimeException e) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(e.getMessage());
 
     }
 
-    @ExceptionHandler({StudentNotFoundException.class,FacultyNotFoundException.class})
-    public  ResponseEntity<String>handleNotFoundException(RuntimeException e){
-    return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(e.getMessage());
+    @ExceptionHandler({StudentNotFoundException.class, FacultyNotFoundException.class})
+    public ResponseEntity<String> handleNotFoundException(RuntimeException e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(e.getMessage());
     }
-
 
 
 }
