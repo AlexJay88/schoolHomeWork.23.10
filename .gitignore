@@ -1,0 +1,57 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+/src/main/java/ru/hogwarts/school/controller/ControllerExceptionHandler.java
+/.gitignore
+/src/main/resources/application.properties
+/src/main/java/ru/hogwarts/school/model/Faculty.java
+/src/main/java/ru/hogwarts/school/exception/FacultyAlreadyExistsException.java
+/src/main/java/ru/hogwarts/school/controller/FacultyController.java
+/src/main/java/ru/hogwarts/school/exception/FacultyNotFoundException.java
+/src/main/java/ru/hogwarts/school/service/FacultyService.java
+/src/main/java/ru/hogwarts/school/service/FacultyServiceImpl.java
+/src/test/java/ru/hogwarts/school/service/FacultyServiceImplTest.java
+/.mvn/wrapper/maven-wrapper.jar
+/.mvn/wrapper/maven-wrapper.properties
+/mvnw
+/mvnw.cmd
+/pom.xml
+/src/main/java/ru/hogwarts/school/SchoolApplication.java
+/src/test/java/ru/hogwarts/school/SchoolApplicationTests.java
+/src/main/java/ru/hogwarts/school/model/Student.java
+/src/main/java/ru/hogwarts/school/exception/StudentAlreadyExistsException.java
+/src/main/java/ru/hogwarts/school/controller/StudentController.java
+/src/main/java/ru/hogwarts/school/exception/StudentNotFoundException.java
+/src/main/java/ru/hogwarts/school/service/StudentService.java
+/src/main/java/ru/hogwarts/school/service/StudentServiceImpl.java
+/src/test/java/ru/hogwarts/school/service/StudentServiceImplTest.java
