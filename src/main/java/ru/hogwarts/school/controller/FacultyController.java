@@ -31,11 +31,15 @@ public class FacultyController {
     public Faculty update(@RequestBody Faculty faculty) {
         return facultyService.update(faculty);
     }
+
     @DeleteMapping("/{id}")
-    public Faculty delete(@PathVariable long id){
+    public Faculty delete(@PathVariable long id) {
         return facultyService.delete(id);
     }
+
     @GetMapping
-    public Collection<Faculty> readByColor(@RequestParam String color){
+    public Collection<Faculty> readByColor(@RequestParam String color) {
         return facultyService.readByColor(color);
-}}
+    }
+}
+

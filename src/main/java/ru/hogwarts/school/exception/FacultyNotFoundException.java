@@ -5,3 +5,4 @@ public class FacultyNotFoundException extends RuntimeException {
         super(message);
     }
 }
+

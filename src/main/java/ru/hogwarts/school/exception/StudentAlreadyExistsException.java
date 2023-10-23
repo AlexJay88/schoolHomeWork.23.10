@@ -5,3 +5,5 @@ public class StudentAlreadyExistsException extends RuntimeException {
         super(message);
     }
 }
+
+

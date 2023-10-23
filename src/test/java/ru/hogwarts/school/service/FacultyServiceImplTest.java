@@ -26,3 +26,4 @@ class FacultyServiceImplTest {
     void readByColor() {
     }
 }
+

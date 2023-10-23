@@ -5,3 +5,4 @@ public class FacultyAlreadyExistsException extends RuntimeException {
         super(message);
     }
 }
+
