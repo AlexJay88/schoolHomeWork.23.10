@@ -3,6 +3,7 @@ package ru.hogwarts.school.service;
 import ru.hogwarts.school.model.Faculty;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface FacultyService {
     Faculty create(Faculty faculty);
@@ -16,4 +17,6 @@ public interface FacultyService {
 
     Collection<Faculty> readByColor(String color);
 
+
+    Collection<Faculty> getFacultiesByColorOrName(String color, String name);
 }

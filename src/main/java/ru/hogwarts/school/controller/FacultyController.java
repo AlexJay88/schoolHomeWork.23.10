@@ -7,6 +7,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
+import java.util.List;
 
 
 @RestController
@@ -44,5 +45,12 @@ public class FacultyController {
     public Collection<Faculty> readByColor(@RequestParam String color) {
         return facultyService.readByColor(color);
     }
-}
+
+    @GetMapping("/by-color-or-name")
+    public Collection<Faculty> getFacultiesByColorOrName(@RequestParam String color, @RequestParam String name) {
+        return facultyService.getFacultiesByColorOrName(color, name);
+    }
+
+    }
+
 
