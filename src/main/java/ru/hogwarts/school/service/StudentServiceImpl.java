@@ -2,6 +2,7 @@ package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.RepositoryStudent;
 
@@ -29,22 +30,26 @@ private final RepositoryStudent repositoryStudent;
 
     @Override
     public Student read(long id) {
-     return repositoryStudent.findById(id).get();
+     return repositoryStudent.findById(id)
+        .orElseThrow(()       ->  new StudentNotFoundException("студент с id"+id+"не найден в хранилище"));
 
     }
 
     @Override
     public Student update(Student student) {
-    return repositoryStudent.save(student);
-
+     repositoryStudent.findById(student.getId())
+            .orElseThrow(()       ->  new StudentNotFoundException("студент с id"+student.getId()+"не найден в хранилище"));
+     return repositoryStudent.save(student);
     }
     
 
 
     @Override
 
-    public void delete(long id) {
-        repositoryStudent.deleteById(id);
+    public Student delete(long id) {
+      Student student=  read(id);
+      repositoryStudent.delete(student);
+      return student;
 
     }
 

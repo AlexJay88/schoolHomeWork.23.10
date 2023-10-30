@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.FacultyNotFoundException;
 import ru.hogwarts.school.exception.StudentAlreadyExistsException;
+import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.RepositoryFaculty;
 import ru.hogwarts.school.repository.RepositoryStudent;
@@ -35,20 +36,23 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty read(long id) {
 
 
-         return repositoryFaculty.findById(id).get();
+         return repositoryFaculty.findById(id).orElseThrow(()->  new FacultyNotFoundException("факультет с id"+id+"не найден в хранилище"));
     }
 
     @Override
     public Faculty update(Faculty faculty) {
-        return repositoryFaculty.save(faculty);
-
+         repositoryFaculty.findById(faculty.getId())
+                .orElseThrow(()       ->  new FacultyNotFoundException("факультет с id"+faculty.getId()+"не найден в хранилище"));
+         return   repositoryFaculty.save(faculty);
     }
 
 
 
     @Override
-    public void delete(long id) {
-        repositoryFaculty.deleteById(id);
+    public Faculty delete(long id) {
+       Faculty faculty=read(id);
+       repositoryFaculty.delete(faculty);
+       return faculty;
 
 
     }

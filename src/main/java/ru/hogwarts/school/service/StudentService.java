@@ -12,7 +12,7 @@ public interface StudentService {
 
     Student update(Student student);
 
-    void delete(long id);
+    Student delete(long id);
 
  Collection <Student> readByAge(int age);
 
