@@ -12,7 +12,7 @@ import java.util.Collection;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    @Autowired
+
     private final RepositoryStudent repositoryStudent;
 
     public StudentServiceImpl(RepositoryStudent repositoryStudent) {

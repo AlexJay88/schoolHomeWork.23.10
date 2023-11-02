@@ -23,7 +23,7 @@ public class Student {
     }
 
     @ManyToOne
-    @JoinColumn(name = "faculty_id")
+    @JoinColumn(name = "facultyId")
     private Faculty faculty;
 
 

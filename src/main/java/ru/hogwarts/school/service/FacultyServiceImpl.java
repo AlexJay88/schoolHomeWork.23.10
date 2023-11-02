@@ -10,7 +10,7 @@ import java.util.Collection;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
-    @Autowired
+
     private final RepositoryFaculty repositoryFaculty;
 
     public FacultyServiceImpl(RepositoryFaculty repositoryFaculty) {
