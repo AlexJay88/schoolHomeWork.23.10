@@ -15,14 +15,14 @@ public interface StudentService {
 
     Student delete(long id);
 
- Collection <Student> readByAge(int age);
+    Collection<Student> readByAge(int age);
 
 
-    Collection<Student>readByAgeBetween(int minAge, int maxAge);
+    Collection<Student> readByAgeBetween(int minAge, int maxAge);
 
     Faculty readStudentFaculty(long studentId);
 
-    Collection<Student>readByFacultyId(long facultyId);
+    Collection<Student> readByFacultyId(long facultyId);
 }
 
 

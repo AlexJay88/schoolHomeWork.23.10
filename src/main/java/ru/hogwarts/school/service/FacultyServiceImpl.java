@@ -29,23 +29,22 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty read(long id) {
 
 
-         return repositoryFaculty.findById(id).orElseThrow(()->  new FacultyNotFoundException("факультет с id"+id+"не найден в хранилище"));
+        return repositoryFaculty.findById(id).orElseThrow(() -> new FacultyNotFoundException("факультет с id" + id + "не найден в хранилище"));
     }
 
     @Override
     public Faculty update(Faculty faculty) {
-         repositoryFaculty.findById(faculty.getId())
-                .orElseThrow(()       ->  new FacultyNotFoundException("факультет с id"+faculty.getId()+"не найден в хранилище"));
-         return   repositoryFaculty.save(faculty);
+        repositoryFaculty.findById(faculty.getId())
+                .orElseThrow(() -> new FacultyNotFoundException("факультет с id" + faculty.getId() + "не найден в хранилище"));
+        return repositoryFaculty.save(faculty);
     }
-
 
 
     @Override
     public Faculty delete(long id) {
-       Faculty faculty=read(id);
-       repositoryFaculty.delete(faculty);
-       return faculty;
+        Faculty faculty = read(id);
+        repositoryFaculty.delete(faculty);
+        return faculty;
 
 
     }
@@ -56,12 +55,13 @@ public class FacultyServiceImpl implements FacultyService {
         return repositoryFaculty.findByColor(color);
 
     }
+
     @Override
     public Collection<Faculty> getFacultiesByColorOrName(String color, String name) {
         return repositoryFaculty.findAllByNameIgnoreCaseOrColorIgnoreCase(color, name);
     }
 
 
-    }
+}
 
 
