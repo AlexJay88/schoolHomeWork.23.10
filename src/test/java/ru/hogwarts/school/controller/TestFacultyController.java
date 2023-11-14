@@ -30,12 +30,12 @@ public class TestFacultyController {
     private FacultyController facultyController;
 
 
-
     @Autowired
     private ObjectMapper objectMapper;
 
 
     private FacultyService facultyService;
+
     @Test
     public void addFacultyTest() throws Exception {
         Long id = 1L;
@@ -105,7 +105,6 @@ public class TestFacultyController {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
 
 
     @Test

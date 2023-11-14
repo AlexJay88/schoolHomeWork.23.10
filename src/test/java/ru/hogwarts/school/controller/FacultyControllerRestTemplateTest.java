@@ -13,7 +13,7 @@ import java.util.Map;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class FacultyControllerRestTemplateTest{
+public class FacultyControllerRestTemplateTest {
     @LocalServerPort
     private int port;
     @Autowired
@@ -31,13 +31,15 @@ public class FacultyControllerRestTemplateTest{
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/faculties", String.class))
                 .isNotNull();
     }
+
     @Test
-    public void testGetFacultyById()  {
+    public void testGetFacultyById() {
         Map<String, String> params = new HashMap<>();
         params.put("id", "1");
 
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/faculties/{id}", Faculty.class, params));
     }
+
     @Test
     public void testGetFacultyByColor() {
         Map<String, String> params = new HashMap<>();
@@ -45,13 +47,15 @@ public class FacultyControllerRestTemplateTest{
 
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/faculties/by-color", Faculty.class, params));
     }
+
     @Test
-    public void testGetStudentsByIdOfFaculty()  {
+    public void testGetStudentsByIdOfFaculty() {
         Map<String, String> params = new HashMap<>();
         params.put("id", "1");
 
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/faculties/studentsByID", Faculty.class, params));
     }
+
     @Test
     public void testGetFacultyByNameOrColor() {
         Map<String, String> params = new HashMap<>();
@@ -62,7 +66,7 @@ public class FacultyControllerRestTemplateTest{
     }
 
     @Test
-    public void testPostFaculty()  {
+    public void testPostFaculty() {
         Faculty faculty = new Faculty();
         faculty.setId(5L);
         faculty.setName("Хогвардс");
@@ -73,7 +77,7 @@ public class FacultyControllerRestTemplateTest{
     }
 
     @Test
-    public void testPutFaculty()  {
+    public void testPutFaculty() {
         Map<String, String> params = new HashMap<>();
         params.put("id", "1");
         Faculty faculty = new Faculty();
@@ -83,8 +87,9 @@ public class FacultyControllerRestTemplateTest{
 
         restTemplate.put("http://localhost:" + port + "/faculties", faculty, params);
     }
+
     @Test
-    public void testDeleteFaculty()  {
+    public void testDeleteFaculty() {
         Map<String, String> params = new HashMap<>();
 
         restTemplate.put("http://localhost:" + port + "/faculties", params);

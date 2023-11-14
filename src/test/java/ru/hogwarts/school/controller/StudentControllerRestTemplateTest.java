@@ -24,18 +24,18 @@ public class StudentControllerRestTemplateTest {
 
 
     @Test
-    void contextLoads()  {
+    void contextLoads() {
         assertThat(studentController).isNotNull();
     }
 
     @Test
-    public void testGetStudents()  {
+    public void testGetStudents() {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/students", String.class))
                 .isNotNull();
     }
 
     @Test
-    public void testGetStudentById()  {
+    public void testGetStudentById() {
         Map<String, String> params = new HashMap<>();
         params.put("id", "1");
 
@@ -43,7 +43,7 @@ public class StudentControllerRestTemplateTest {
     }
 
     @Test
-    public void testGetStudentBuAgeBetween()  {
+    public void testGetStudentBuAgeBetween() {
         Map<String, String> params = new HashMap<>();
         params.put("ageMin", "12");
         params.put("ageMax", "16");
@@ -52,7 +52,7 @@ public class StudentControllerRestTemplateTest {
     }
 
     @Test
-    public void testGetFacultyOfStudent()  {
+    public void testGetFacultyOfStudent() {
         Map<String, String> params = new HashMap<>();
         params.put("id", "1");
 
@@ -68,7 +68,7 @@ public class StudentControllerRestTemplateTest {
     }
 
     @Test
-    public void testPostStudent()  {
+    public void testPostStudent() {
         Student student = new Student();
         student.setId(1L);
         student.setName("Bob");
@@ -89,7 +89,7 @@ public class StudentControllerRestTemplateTest {
     }
 
     @Test
-    public void testDeleteStudent()  {
+    public void testDeleteStudent() {
         Map<String, String> params = new HashMap<>();
 
         restTemplate.put("http://localhost:" + port + "/student", params);
