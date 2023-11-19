@@ -8,11 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.AvatarService;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 
 @RestController
 @RequestMapping("/avatar")
@@ -62,6 +61,13 @@ public class AvatarController {
                 .ok()
                 .headers(headers)
                 .body(Files.readAllBytes(avatar.toPath()));
+    }
+
+    @GetMapping(value = "/avatar-by-page")
+    public List<Avatar> getAvatarByPage(@RequestParam("page") int pageNumber,
+                                        @RequestParam("size") int pageSize) throws IOException {
+
+        return avatarService.findAvatarByPage(pageNumber, pageSize);
     }
 
 }

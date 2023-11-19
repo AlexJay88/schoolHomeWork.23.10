@@ -5,6 +5,7 @@ import ru.hogwarts.school.model.Avatar;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public interface AvatarService {
 
@@ -13,4 +14,6 @@ public interface AvatarService {
     Avatar readFromDB(long id);
 
     File readFromFile(long id)throws IOException;
+
+    List<Avatar> findAvatarByPage(int pageNumber, int pageSize);
 }

@@ -1,78 +1,96 @@
 package ru.hogwarts.school.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school.exception.StudentNotFoundException;
-import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
-import ru.hogwarts.school.repository.RepositoryStudent;
+import ru.hogwarts.school.model.StudentsByCategory;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
 
 @Service
+
 public class StudentServiceImpl implements StudentService {
+    private final StudentRepository studentRepository;
 
-
-    private final RepositoryStudent repositoryStudent;
-
-    public StudentServiceImpl(RepositoryStudent repositoryStudent) {
-        this.repositoryStudent = repositoryStudent;
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
 
     @Override
-    public Student create(Student student) {
-
-        return repositoryStudent.save(student);
-
+    public Student add(Student student) {
+        return studentRepository.save(student);
     }
 
     @Override
-    public Student read(long id) {
-        return repositoryStudent.findById(id)
-                .orElseThrow(() -> new StudentNotFoundException("студент с id" + id + "не найден в хранилище"));
+    public Student get(Long id) {
 
+        return studentRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Student update(Student student) {
-        repositoryStudent.findById(student.getId())
-                .orElseThrow(() -> new StudentNotFoundException("студент с id" + student.getId() + "не найден в хранилище"));
-        return repositoryStudent.save(student);
+    public Student update(Long id, Student student) {
+        Student savedStudent = get(id);
+        if (savedStudent == null) {
+            return null;
+        }
+        savedStudent.setName(student.getName());
+        savedStudent.setAge(student.getAge());
+
+        return studentRepository.save(savedStudent);
+    }
+
+    @Override
+    public void remove(Long id) {
+
+       studentRepository.deleteById(id);
+    }
+
+    @Override
+    public Collection<Student> getStudentByAge(int age) {
+        return studentRepository.findByAge(age);
+    }
+
+    @Override
+    public Collection<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    @Override
+    public Collection<Student> getStudentsBetweenAge(int min, int max) {
+        return studentRepository.findByAgeBetween(min, max);
+    }
+
+    @Override
+    public Student read(Long studentId) {
+        return null;
+    }
+
+    @Override
+    public Object getFacultyOfStudent(Long any) {
+        return null;
+    }
+
+    @Override
+    public Integer getStudentCount() {
+        return studentRepository.getStudentCount();
     }
 
 
     @Override
-
-    public Student delete(long id) {
-        Student student = read(id);
-        repositoryStudent.delete(student);
-        return student;
-
+    public Integer getAverageAgeOfStudents() {
+        return studentRepository.getAverageAgeOfStudents();
     }
 
     @Override
-    public Collection<Student> readByAge(int age) {
-
-        return repositoryStudent.findByAge(age);
-
+    public Collection<StudentsByCategory> getLastFiveStudents() {
+        return studentRepository.getLastFiveStudents();
     }
 
     @Override
-    public Collection<Student> readByAgeBetween(int minAge, int maxAge) {
-        return repositoryStudent.findByAgeBetween(minAge, maxAge);
-    }
-
-    @Override
-    public Faculty readStudentFaculty(long studentId) {
-        return read(studentId).getFaculty();
-    }
-
-    @Override
-    public Collection<Student> readByFacultyId(long facultyId) {
-        return repositoryStudent.findAllByFaculty_Id(facultyId);
+    public Integer getAverageAge() {
+        return null;
     }
 
 
 }
-
