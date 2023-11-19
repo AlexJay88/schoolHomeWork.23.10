@@ -31,5 +31,6 @@ public class StudentsByCategoryController {
     public Collection<StudentsByCategory> getLastFiveStudents() {
         return studentService.getLastFiveStudents();
     }
+
 }
 

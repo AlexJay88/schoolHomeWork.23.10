@@ -51,11 +51,12 @@ public class AvatarController {
                 .headers(headers)
                 .body(avatar.getData());
     }
-    @GetMapping("/{id}/avatar-from-file")
-    public ResponseEntity<byte[]>downloadAvatar(@PathVariable Long id)throws IOException{
-        File avatar=avatarService.readFromFile(id);
 
-        HttpHeaders headers=new HttpHeaders();
+    @GetMapping("/{id}/avatar-from-file")
+    public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long id) throws IOException {
+        File avatar = avatarService.readFromFile(id);
+
+        HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(Files.probeContentType(avatar.toPath())));
         return ResponseEntity
                 .ok()
@@ -71,3 +72,4 @@ public class AvatarController {
     }
 
 }
+
