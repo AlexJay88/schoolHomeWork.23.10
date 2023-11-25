@@ -59,6 +59,7 @@ public class FacultyServiceImpl implements FacultyService {
         return facultyRepository.findByColorIgnoreCase(color);
     }
 
+
     @Override
     public Collection<Faculty> getFacultyByNameOrColor(String name, String color) {
         logger.debug("Was invoked a method to find a faculty by name or color");

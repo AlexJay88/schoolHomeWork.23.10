@@ -47,6 +47,7 @@ public class AvatarServiceImpl implements AvatarService {
 
     }
 
+
     private Path saveToFile(Student student, MultipartFile avatarFile) throws IOException {
         Path filePath = Path.of(avatarsDir,
                 student.getId() + "." + getExtensions(avatarFile.getOriginalFilename()));
@@ -103,3 +104,5 @@ public class AvatarServiceImpl implements AvatarService {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 }
+
+

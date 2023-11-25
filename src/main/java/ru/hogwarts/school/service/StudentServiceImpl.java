@@ -104,5 +104,10 @@ public class StudentServiceImpl implements StudentService {
         return averageAge;
     }
 
+    @Override
+    public Student getById(Long studentId) {
+        logger.debug("Was invoked a method to find last five students");
+        return studentRepository.getById();
+    }
 
 }
