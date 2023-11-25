@@ -1,64 +1,68 @@
 package ru.hogwarts.school.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school.exception.FacultyNotFoundException;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.repository.RepositoryFaculty;
+import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
+    private final FacultyRepository facultyRepository;
 
-    private final RepositoryFaculty repositoryFaculty;
-
-    public FacultyServiceImpl(RepositoryFaculty repositoryFaculty) {
-        this.repositoryFaculty = repositoryFaculty;
+    public FacultyServiceImpl(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
     }
+
+    private static final Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
 
 
     @Override
-    public Faculty create(Faculty faculty) {
+    public Faculty add(Faculty faculty) {
+        logger.debug("Was invoked a method to create a faculty");
 
-        return repositoryFaculty.save(faculty);
-
+        return facultyRepository.save(faculty);
     }
 
     @Override
-    public Faculty read(long id) {
-
-
-        return repositoryFaculty.findById(id).orElseThrow(() -> new FacultyNotFoundException("факультет с id" + id + "не найден в хранилище"));
+    public Faculty get(Long id) {
+        logger.debug("Was invoked a method to find a faculty by id");
+        return facultyRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Faculty update(Faculty faculty) {
-        repositoryFaculty.findById(faculty.getId())
-                .orElseThrow(() -> new FacultyNotFoundException("факультет с id" + faculty.getId() + "не найден в хранилище"));
-        return repositoryFaculty.save(faculty);
-    }
+    public Faculty update(Long id, Faculty faculty) { // UPDATE
+        Faculty savedFaculty = get(id);
+        if (savedFaculty == null) {
+            return null;
+        }
+        savedFaculty.setName(faculty.getName());
+        savedFaculty.setColor(faculty.getColor());
+        logger.debug("Was invoked a method to update a faculty");
 
-
-    @Override
-    public Faculty delete(long id) {
-        Faculty faculty = read(id);
-        repositoryFaculty.delete(faculty);
-        return faculty;
-
-
-    }
-
-
-    @Override
-    public Collection<Faculty> readByColor(String color) {
-        return repositoryFaculty.findByColor(color);
-
+        return facultyRepository.save(savedFaculty);
     }
 
     @Override
-    public Collection<Faculty> getFacultiesByColorOrName(String color, String name) {
-        return repositoryFaculty.findAllByNameIgnoreCaseOrColorIgnoreCase(color, name);
+    public void remove(Long id) {
+        logger.debug("Was invoked a method to delete a faculty");
+
+        facultyRepository.deleteById(id);
+    }
+
+    @Override
+    public Collection<Faculty> getFacultyByColor(String color) {
+        logger.debug("Was invoked a method to find a faculty by color");
+
+        return facultyRepository.findByColorIgnoreCase(color);
+    }
+
+    @Override
+    public Collection<Faculty> getFacultyByNameOrColor(String name, String color) {
+        logger.debug("Was invoked a method to find a faculty by name or color");
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
 
 

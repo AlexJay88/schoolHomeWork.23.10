@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,6 +27,7 @@ public class AvatarServiceImpl implements AvatarService {
 
     private final StudentService studentService;
     private final RepositoryAvatar repositoryAvatar;
+    private static final Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
 
     public AvatarServiceImpl(StudentService studentService, RepositoryAvatar repositoryAvatar,
                              @Value("${path.to.avatars.folder}") String avatarsDir) {
@@ -35,10 +38,11 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
-        Student student = studentService.read(studentId);
+        Student student = studentService.getById(studentId);
         Path filePath = saveToFile(student, avatarFile);
 
         saveToDb(filePath, avatarFile, student);
+        logger.debug("Was invoked a method to create an avatar");
 
 
     }
@@ -73,6 +77,8 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public Avatar readFromDB(long id) {
+        logger.debug("Was invoked a method to read from DB an avatar");
+
         return repositoryAvatar.findById(id)
                 .orElseThrow(() -> new AvatarNotFoundException("Аватар не найден"));
     }
@@ -81,6 +87,7 @@ public class AvatarServiceImpl implements AvatarService {
     public File readFromFile(long id) throws IOException {
         Avatar avatar = readFromDB(id);
         Path path = Path.of(avatar.getFilePath());
+        logger.debug("Was invoked a method to read from file an avatar");
 
         return new File(path.toString());
     }
@@ -88,6 +95,7 @@ public class AvatarServiceImpl implements AvatarService {
     @Override
     public List<Avatar> findAvatarByPage(int pageNumber, int pageSize) {
         Pageable paging = (Pageable) PageRequest.of(pageNumber, pageSize);
+        logger.debug("Was invoked a method to find an avatar");
         return repositoryAvatar.findAll((Sort) paging);
     }
 
