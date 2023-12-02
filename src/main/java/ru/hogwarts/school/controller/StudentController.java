@@ -7,6 +7,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
 
 
 @RestController
@@ -63,17 +64,26 @@ public class StudentController {
         return studentService.getStudentsBetweenAge(min, max);
 
     }
+
+    @GetMapping("/students-from/{letter}")
+    public Collection<String> getStudentByAlphabetAndUpperCaseFromA(@PathVariable String letter) {
+        return studentService.getAllStudentsFrom(letter);
+    }
+
     @GetMapping("/get-average-age")
     public Integer getAverageAgeOfStudents() {
         return studentService.getAverageAge();
     }
 
+    @GetMapping("/stream")
+    public List<String> getAllStudentsStream() {
+        return studentService.getAllStudentsStream();
+    }
 
-
-
-
-
-
+    @GetMapping("/synchronized-stream")
+    public List<String> getAllStudentsSynchronizedStream() {
+        return studentService.getAllStudentsSynchronizedStream();
+    }
 
 
 }

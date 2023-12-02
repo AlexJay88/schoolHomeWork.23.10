@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -51,7 +52,10 @@ public class Faculty {
 
     public void setColor(String color) {
         this.color = color;
+    }   public Collection<Student> getStudents() {
+        return students;
     }
+
 
     @Override
     public boolean equals(Object o) {

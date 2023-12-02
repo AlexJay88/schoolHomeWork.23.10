@@ -4,9 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -64,6 +66,21 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Faculty> getFacultyByNameOrColor(String name, String color) {
         logger.debug("Was invoked a method to find a faculty by name or color");
         return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
+    }
+
+    @Override
+    public Collection<Student> getStudentsOfFaculties(Long id) {
+        logger.debug("Was invoked a method to find all students of faculty");
+        return facultyRepository.getById(id).getStudents();
+    }
+
+    public String longestNameOfFaculty() {
+        Collection<Faculty> allFaculties = facultyRepository.findAll();
+        String longestName = allFaculties.stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length))
+                .orElse(null);
+        return longestName;
     }
 
 
