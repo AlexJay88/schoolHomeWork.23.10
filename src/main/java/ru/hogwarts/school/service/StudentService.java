@@ -4,6 +4,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.model.StudentsByCategory;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface StudentService {
     Student add(Student student);
@@ -21,9 +22,6 @@ public interface StudentService {
 
     Collection<Student> getStudentsBetweenAge(int min, int max);
 
-    Student read(Long studentId);
-
-    Object getFacultyOfStudent(Long any);
 
     Integer getStudentCount();
 
@@ -33,4 +31,17 @@ public interface StudentService {
 
 
     Integer getAverageAge();
+
+    Student getById(Long studentId);
+
+    Object getFacultyOfStudent(Long any);
+
+    Object read(Long id);
+
+    Collection<String> getAllStudentsFrom(String letter);
+
+    List<String> getAllStudentsStream();
+
+    List<String> getAllStudentsSynchronizedStream();
+
 }

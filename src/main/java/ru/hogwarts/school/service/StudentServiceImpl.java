@@ -160,13 +160,13 @@ public class StudentServiceImpl implements StudentService {
             doOperation(2);
             doOperation(3);
         }).start();
-
         new Thread(() -> {
             doOperation(3);
             doOperation(4);
         }).start();
         return getStudentNames();
     }
+
 
     public synchronized void doOperation(int number) {
         System.out.println(getStudentNames().get(number));
@@ -179,6 +179,5 @@ public class StudentServiceImpl implements StudentService {
                 .collect(Collectors.toList());
         return studentsNames;
     }
-
 
 }

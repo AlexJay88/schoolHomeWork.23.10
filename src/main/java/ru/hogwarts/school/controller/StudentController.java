@@ -75,6 +75,7 @@ public class StudentController {
         return studentService.getAverageAge();
     }
 
+
     @GetMapping("/stream")
     public List<String> getAllStudentsStream() {
         return studentService.getAllStudentsStream();
