@@ -3,6 +3,7 @@ package ru.hogwarts.school.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.model.StudentsByCategory;
 import ru.hogwarts.school.repository.StudentRepository;
@@ -102,13 +103,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Object getFacultyOfStudent(Long any) {
-        return null;
-    }
-
-    @Override
-    public Object read(Long id) {
-        return null;
+    public Faculty getFacultyOfStudent(Long id) {
+        logger.debug("Was invoked a method to find faculty of student");
+        return studentRepository.getById(id).getFaculty();
     }
 
 
