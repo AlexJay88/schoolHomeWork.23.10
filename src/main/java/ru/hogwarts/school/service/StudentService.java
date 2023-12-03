@@ -34,9 +34,8 @@ public interface StudentService {
 
     Student getById(Long studentId);
 
-    Object getFacultyOfStudent(Long any);
+    Object getFacultyOfStudent(Long id);
 
-    Object read(Long id);
 
     Collection<String> getAllStudentsFrom(String letter);
 

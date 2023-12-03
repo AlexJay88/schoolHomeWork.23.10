@@ -86,5 +86,4 @@ public class StudentController {
         return studentService.getAllStudentsSynchronizedStream();
     }
 
-
 }
