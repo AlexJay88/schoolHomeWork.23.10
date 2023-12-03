@@ -1,19 +1,46 @@
 package ru.hogwarts.school.service;
 
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.model.StudentsByCategory;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface StudentService {
-    Student create(Student student);
+    Student add(Student student);
 
-    Student read(long id);
+    Student get(Long id);
 
-    Student update(Student student);
+    Student update(Long id, Student student);
 
-    Student delete(long id);
+    void remove(Long id);
 
-    Collection<Student> readByAge(int age);
+    Collection<Student> getStudentByAge(int age);
+
+
+    Collection<Student> getAllStudents();
+
+    Collection<Student> getStudentsBetweenAge(int min, int max);
+
+
+    Integer getStudentCount();
+
+    Integer getAverageAgeOfStudents();
+
+    Collection<StudentsByCategory> getLastFiveStudents();
+
+
+    Integer getAverageAge();
+
+    Student getById(Long studentId);
+
+    Object getFacultyOfStudent(Long id);
+
+
+    Collection<String> getAllStudentsFrom(String letter);
+
+    List<String> getAllStudentsStream();
+
+    List<String> getAllStudentsSynchronizedStream();
+
 }
-
-

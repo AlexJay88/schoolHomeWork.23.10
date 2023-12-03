@@ -1,72 +1,89 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school.exception.FacultyNotFoundException;
-import ru.hogwarts.school.exception.StudentAlreadyExistsException;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Comparator;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
-    private final Map<Long, Faculty> repositoryFaculty = new HashMap<>();
-    private Long idCounterFaculty = 0L;
+    private final FacultyRepository facultyRepository;
+
+    public FacultyServiceImpl(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
+
+    private static final Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
+
 
     @Override
-    public Faculty create(Faculty faculty) {
-        if (repositoryFaculty.containsValue(faculty)) {
-            throw new StudentAlreadyExistsException("Факультет" + faculty + "уже есть в хранилище");
+    public Faculty add(Faculty faculty) {
+        logger.debug("Was invoked a method to create a faculty");
+
+        return facultyRepository.save(faculty);
+    }
+
+    @Override
+    public Faculty get(Long id) {
+        logger.debug("Was invoked a method to find a faculty by id");
+        return facultyRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Faculty update(Long id, Faculty faculty) { // UPDATE
+        Faculty savedFaculty = get(id);
+        if (savedFaculty == null) {
+            return null;
         }
-        long id = ++idCounterFaculty;
-        faculty.setId(id);
+        savedFaculty.setName(faculty.getName());
+        savedFaculty.setColor(faculty.getColor());
+        logger.debug("Was invoked a method to update a faculty");
 
-
-        repositoryFaculty.put(id, faculty);
-        return faculty;
-
+        return facultyRepository.save(savedFaculty);
     }
 
     @Override
-    public Faculty read(long id) {
-        Faculty faculty = repositoryFaculty.get(id);
-        if (faculty == null) {
-            throw new FacultyNotFoundException("Факультет с id" + id + "не найден в хранилище");
-        }
-        return faculty;
+    public void remove(Long id) {
+        logger.debug("Was invoked a method to delete a faculty");
+
+        facultyRepository.deleteById(id);
     }
 
     @Override
-    public Faculty update(Faculty faculty) {
-        if (!repositoryFaculty.containsKey(faculty.getId())) {
-            throw new FacultyNotFoundException("Факультет с id" + faculty.getId() + "не найден в хранилище");
+    public Collection<Faculty> getFacultyByColor(String color) {
+        logger.debug("Was invoked a method to find a faculty by color");
 
-        }
+        return facultyRepository.findByColorIgnoreCase(color);
+    }
 
 
-        repositoryFaculty.put(faculty.getId(), faculty);
-        return faculty;
-
+    @Override
+    public Collection<Faculty> getFacultyByNameOrColor(String name, String color) {
+        logger.debug("Was invoked a method to find a faculty by name or color");
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
 
     @Override
-    public Faculty delete(long id) {
-        Faculty faculty = repositoryFaculty.remove(id);
-        if (faculty == null) {
-            throw new FacultyNotFoundException("Факультет с id" + id + "не найден в хранилище");
-
-        }
-        return faculty;
+    public Collection<Student> getStudentsOfFaculties(Long id) {
+        logger.debug("Was invoked a method to find all students of faculty");
+        return facultyRepository.getById(id).getStudents();
     }
 
-    @Override
-    public Collection<Faculty> readByColor(String color) {
-        return repositoryFaculty.values().stream()
-                .filter(faculty -> Objects.equals(faculty.getColor(), color))
-                .collect(Collectors.toUnmodifiableList());
-
+    public String longestNameOfFaculty() {
+        Collection<Faculty> allFaculties = facultyRepository.findAll();
+        String longestName = allFaculties.stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length))
+                .orElse(null);
+        return longestName;
     }
+
+
 }
+
+
